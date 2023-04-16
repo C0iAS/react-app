@@ -1,20 +1,41 @@
 import React from 'react'
-import { ImgWrapper, Img, Button } from './styles'
-import { MdFavorite } from "react-icons/md";
+import { Article, ImgWrapper, Img, Button } from './styles'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useNearScreen } from '../../hooks/useNearScreen'
+import { FavButton } from '../FavButton'
+import { useToggleLikeMutation } from '../../container/ToggleLikeMutation'
+import { Link } from 'react-router-dom'
 
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
 
-export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE}) => {
+export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+  const [show, element] = useNearScreen();
+  const key = `like-${id}`;
+  const [liked, setLiked] = useLocalStorage(key, false);
+  const { likeAnonymousPhoto, loading, error } = useToggleLikeMutation();
+  const handleFavClick = () => {
+    !liked &&
+      likeAnonymousPhoto({
+        variables: {
+          input: { id },
+        },
+      });
+    setLiked(!liked);
+  };
+
   return (
-    <article>
-      <a href={`/detail/${id}`}>
-        <ImgWrapper>
-          <Img src={src} />
-        </ImgWrapper>
-      </a>
+    <Article ref={element}>
+      {show && (
+        <React.Fragment>
+          <Link to={`/detail/${id}`}>
+            <ImgWrapper>
+              <Img src={src} />
+            </ImgWrapper>
+          </Link>
 
-      <Button>
-        <MdFavorite size='24px'/>{likes} likes! 
-      </Button>
-    </article>
-)}
+          <FavButton likes={likes} liked={liked} onClick={handleFavClick} />
+        </React.Fragment>
+      )}
+    </Article>
+  );
+}
