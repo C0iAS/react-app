@@ -1,4 +1,3 @@
-import React from 'react'
 import { gql, useMutation } from '@apollo/client'
 
 const REGISTER = gql`
@@ -8,9 +7,9 @@ const REGISTER = gql`
 `
 
 export const useRegisterMutation = () => {
-  const [registerMutation, {loading, error}] = useMutation(REGISTER)
+  const [signup, {loading, error}] = useMutation(REGISTER)
 
-   return { registerMutation, loading, error }
+  return { signup, loading, error }
 }
 
 

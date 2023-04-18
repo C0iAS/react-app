@@ -2,27 +2,37 @@ import React from "react";
 import Context from "../Context";
 import { UserForm } from "../components/UserForm";
 import { useRegisterMutation } from "../container/RegisterMutation";
+import { useLoginMutation } from "../container/LoginMutation";
 
 export const NotRegisteredUser = () => {
 
-  const { registerMutation, loading, error } = useRegisterMutation()
+  const { signup, loading: registerLoading, error: registerError } = useRegisterMutation()
+  const { login, loading: loginLoading, error: loginError } = useLoginMutation()
 
   return (
     <Context.Consumer>
       {({ activateAuth }) => {
-        const onSubmit = ({ email, password }) => {
+        const registerSubmit = ({ email, password }) => {
           const input = { email, password }
           const variables = { input }
-          registerMutation({ variables })
+          signup({ variables })
             .then(activateAuth)
         }
 
-        const errorMsg = error && 'User already exist'
+        const loginSubmit = ({ email, password }) => {
+          const input = { email, password }
+          const variables = { input }
+          login({ variables })
+            .then(activateAuth)
+        }
+
+        const registerErrorMsg = registerError && 'User already exist'
+        const loginErrorMsg = loginError && 'Incorret password or user does not exist'
       
       return (
         <React.Fragment>
-          <UserForm disabled={loading} error={errorMsg} title="Registrarse" onSubmit={onSubmit} />
-          <UserForm title="Iniciar sesión" onSubmit={activateAuth} />
+          <UserForm disabled={registerLoading} error={registerErrorMsg} title="Registrarse" onSubmit={registerSubmit} />
+          <UserForm disabled={loginLoading} error={loginErrorMsg} title="Iniciar sesión" onSubmit={loginSubmit} />
         </React.Fragment>)
       }}
     </Context.Consumer>
