@@ -13,21 +13,25 @@ import { NotFound } from './pages/NotFound';
 
 export const App = () => {
 
-  const { isAuth } = useContext(Context);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { isAuth } = useContext(Context)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
-    if (isAuth && location.pathname === '/login') {
-      navigate('/', { replace: true });
+    if (isAuth && location.pathname === '/users/login') {
+      navigate('/users', { replace: true })
+    } else if (isAuth && location.pathname === '/favs/login') {
+      navigate('/favs', { replace: true })
     }
-  }, [isAuth, location.pathname, navigate]);
+  }, [isAuth, location.pathname, navigate])
 
   useEffect(() => {
-    if (!isAuth && (location.pathname === '/favs' || location.pathname === '/users')) {
-      navigate('/login', { replace: true });
+    if (!isAuth && location.pathname === '/users') {
+      navigate('/users/login', { replace: true })
+    } else if (!isAuth && location.pathname === '/favs') {
+      navigate('/favs/login', { replace: true })
     }
-  }, [isAuth, location.pathname, navigate]);
+  }, [isAuth, location.pathname, navigate])
 
   return (
     <React.Fragment>
@@ -38,7 +42,8 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/pet/:id" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<NotRegisteredUser />} />
+        <Route path="/favs/login" element={<NotRegisteredUser />} />
+        <Route path="/users/login" element={<NotRegisteredUser />} />
         { isAuth &&
           <>
             <Route path="/favs" element={<Favs />} />

@@ -36,14 +36,14 @@ const client = new ApolloClient({
 
 const rootElement = document.getElementById('app')
 const root = createRoot(rootElement)
-root.render(
-  <BrowserRouter>
+root.render(  
     <Context.Provider>
       <ApolloProvider client={client}>
-        <App/>        
+        <BrowserRouter>
+          <App/>        
+        </BrowserRouter>
       </ApolloProvider>
-    </Context.Provider>
-  </BrowserRouter>
+    </Context.Provider>  
 )
 
 
