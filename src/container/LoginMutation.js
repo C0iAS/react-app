@@ -7,7 +7,7 @@ const LOGIN = gql`
 `
 
 export const useLoginMutation = () => {
-  const [login, {loading, error}] = useMutation(LOGIN)
+  const [loginMutation, {loading, error}] = useMutation(LOGIN)
 
-  return { login, loading, error }
+  return { loginMutation, loading, error }
 }

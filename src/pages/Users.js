@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from '../Context'
+import { SubmitButton } from "../components/SubmitButton";
 
 export const Users = () => {
-  return (
+
+  const { deactivateAuth } = useContext(Context)
+
+  return <React.Fragment>
     <h1>Users</h1>
-  )
+    <SubmitButton onClick={deactivateAuth}>Log out!</SubmitButton>
+  </React.Fragment>
 }

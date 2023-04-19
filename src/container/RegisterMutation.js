@@ -7,9 +7,9 @@ const REGISTER = gql`
 `
 
 export const useRegisterMutation = () => {
-  const [signup, {loading, error}] = useMutation(REGISTER)
+  const [signupMutation, {loading, error}] = useMutation(REGISTER)
 
-  return { signup, loading, error }
+  return { signupMutation, loading, error }
 }
 
 

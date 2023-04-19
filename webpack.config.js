@@ -17,7 +17,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader:'babel-loader',
           options: {
             plugins: ['@babel/plugin-syntax-dynamic-import'],
             presets: ['@babel/preset-env', '@babel/preset-react']
@@ -25,5 +25,6 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  devtool: 'eval-cheap-source-map'
 }
