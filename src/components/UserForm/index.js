@@ -14,8 +14,8 @@ export const UserForm = ({ disabled, error, onSubmit, title }) => {
       password: password.value
     })
   }
-  
-  return (
+
+ return (
     <React.Fragment>
       <Title>{title}</Title>
       <Form disabled={disabled} onSubmit={handleSubmit}>
