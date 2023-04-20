@@ -1,10 +1,9 @@
 import React from 'react'
 import { useGetFavorite } from '../container/GetFavorites'
 import { ListOfFavs } from '../components/ListOfFavs'
-import { Helmet } from 'react-helmet'
 import { Layout } from '../components/Layout'
 
-export const Favs = ()=> {
+export  default () => {
     const { data, loading, error } = useGetFavorite()
 
     if (loading) return 'loading...'

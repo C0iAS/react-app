@@ -1,15 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Suspense } from 'react';
 import { Logo } from './components/Logo';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { Home } from './pages/Home';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { Detail } from './pages/Detail';
 import { NavBar } from './components/NavBar';
-import { Favs } from './pages/Favs';
+//import  Favs from './pages/Favs';
 import { Users } from './pages/Users';
 import { NotRegisteredUser } from './pages/NotRegisteredUser';
 import { Context } from './Context';
 import { NotFound } from './pages/NotFound';
+
+const Favs = React.lazy(() => import('./pages/Favs'))
 
 export const App = () => {
 
